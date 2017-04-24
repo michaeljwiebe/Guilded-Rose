@@ -23,12 +23,14 @@
 
 var player = document.getElementsByClassName("player")[0];
 var stop = document.getElementsByClassName("stop")[0];
+var play = document.getElementsByClassName("play")[0];
+var pause = document.getElementsByClassName("pause")[0];
 
 
 var Jukebox = {
 	AddSong: AddSong,
 	songs: [],
-	play: play,
+	play: playAudio,
 	pause: pause,
 	stop: stop
 }
@@ -41,13 +43,19 @@ function AddSong(name, filePath, imgPath){
 	Jukebox.songs.push(this);
 }
 
-function play(){
-	player.src = this.songs[0].filePath;
+function playAudio(num){
+	player.src = Jukebox.songs[num].filePath;
+	// player.src = "songs/01.mp3";
 }
+
 function pause(){}
 function stop(){}
 
-var song1 = Jukebox.AddSong("Mi Fracaso", "songs/01-Mi-Fracaso.m4a","img/merengue.jpg");
+Jukebox.AddSong("Carlos 01", "songs/01.mp3","img/merengue.jpg");
+Jukebox.AddSong("Carlos 02", "songs/02.mp3","img/merengue.jpg");
+Jukebox.AddSong("Carlos 03", "songs/03.mp3","img/merengue.jpg");
+Jukebox.AddSong("Carlos 04", "songs/04.mp3","img/merengue.jpg");
+Jukebox.AddSong("Carlos 05", "songs/05.mp3","img/merengue.jpg");
 
 
-Jukebox.play()
+Jukebox.play(0);

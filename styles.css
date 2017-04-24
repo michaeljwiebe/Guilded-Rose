@@ -1,3 +1,42 @@
-body{
+*{
+	box-sizing: border-box;
+}
+.absolute{
+	position: absolute;
+}
+
+.blue-overlay{
+	height: 400px;
+	width: 500px;
 	background-color: #45b1fb;
+	opacity: 0.7;
+}
+.bear{
+
+	position: relative;
+
+}
+.bear-pic{
+	background-image: url("exercise12-16/bear.jpg");
+	background-size: cover;
+	height: 400px;
+	width: 575px;
+	left: -75px;
+}
+.bear-title	{
+    font-size: 30px;
+    font-family: "Open Sans", sans-serif;
+    margin: 73px 68px 30px 68px;
+    color: white;
+}
+.bear-text{
+	color: white;
+	width: 450px;
+	top: 200px;
+	margin: 70px 73px;
+}
+.btn{
+	background-color: #fff;
+	color: orange;
+	padding: 10px;
 }

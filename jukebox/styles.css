@@ -1,0 +1,17 @@
+body{
+	background-color: #45b1fb;
+}
+
+.btn{
+	background-size: cover;
+	width: 150px;
+	height: 150px;
+}
+
+.play{
+	background-image: url("");
+}
+
+.stop{
+	background-image: url("");
+}

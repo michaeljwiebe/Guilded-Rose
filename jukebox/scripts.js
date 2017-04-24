@@ -52,12 +52,11 @@ function Song(name, filePath, imgPath){
 function playAudio(num){
 	var nextSong = jukebox.songs[num].filePath;
 	currentSong = num;
-	songTitle.innerHTML = "the current song is " + currentSong;
+	songTitle.innerHTML = "the current song is " + jukebox.songs[num];
 	player.src = nextSong;
 	player.currentTime = songTime;
 	player.play();
 	playIndicator.innerHTML = "<img width='300' height='250' src='img/play.png'>";
-	// player.src = "songs/01.mp3";
 }
 
 function pauseAudio(){
@@ -68,35 +67,41 @@ function pauseAudio(){
 }
 function stopAudio(){
 	player.pause();
-	songTime = 0;
+	player.currentTime = 0;
 
 }
 
 function listSongs(){
 	for(let i = 0; i < jukebox.songs.length; i++){
 		songList.innerHTML += "<div class='song" + i + "'>" + jukebox.songs[i].name + "</div>";
+	}
+
+}
+
+function addButtons(){
+		for(let i = 0; i < jukebox.songs.length; i++){
 		document.getElementsByClassName("song" + i)[0].addEventListener("click", 
 			function(event){
 				currentSong = parseInt(event.target.innerHTML.split("").pop());
 				jukebox.playAudio(currentSong);
-				console.log(i);
 			}
 		);
 	}
 }
 
+
 new Song("Carlos 00", "songs/01.mp3","img/merengue.jpg");
 new Song("Carlos 01", "songs/02.mp3","img/merengue.jpg");
+new Song("Now To Him2", "songs/NowToHim4.mp3","img/merengue.jpg");
+new Song("Shenandoah3", "songs/Shenandoah3.mp3","img/merengue.jpg");
 
-// var currentSong = jukebox.songs[0].name;
 
 listSongs();
+addButtons();
 
 play.addEventListener("click", function(){jukebox.playAudio(currentSong)});
-// play.addEventListener("mouseover", jukebox.playAudio);
 stop.addEventListener("click", jukebox.stopAudio);
 pause.addEventListener("click", jukebox.pauseAudio);
-// pause.addEventListener("mouseover", jukebox.pauseAudio);
 
 
 jukebox.playAudio(0);

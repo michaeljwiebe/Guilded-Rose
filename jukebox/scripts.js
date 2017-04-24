@@ -24,38 +24,79 @@
 var player = document.getElementsByClassName("player")[0];
 var stop = document.getElementsByClassName("stop")[0];
 var play = document.getElementsByClassName("play")[0];
+var playIndicator = document.getElementsByClassName("play-indicator")[0];
 var pause = document.getElementsByClassName("pause")[0];
+var songList = document.getElementsByClassName("song-list")[0];
+var songTitle = document.getElementsByClassName("song-title")[0];
+var songTime = 0;
 
-
-var Jukebox = {
-	AddSong: AddSong,
+var jukebox = {
+	addSong: addSong,
 	songs: [],
-	play: playAudio,
-	pause: pause,
-	stop: stop
+	playAudio: playAudio,
+	pauseAudio: pauseAudio,
+	stopAudio: stopAudio
+};
+
+function addSong(){
+	// add songs to next up?
 }
 
-
-function AddSong(name, filePath, imgPath){
+function Song(name, filePath, imgPath){
 	this.name = name;
 	this.filePath = filePath;
 	this.imgPath = imgPath;
-	Jukebox.songs.push(this);
+	jukebox.songs.push(this);
 }
 
 function playAudio(num){
-	player.src = Jukebox.songs[num].filePath;
+	var nextSong = jukebox.songs[num].filePath;
+	currentSong = num;
+	songTitle.innerHTML = "the current song is " + currentSong;
+	player.src = nextSong;
+	player.currentTime = songTime;
+	player.play();
+	playIndicator.innerHTML = "<img width='300' height='250' src='img/play.png'>";
 	// player.src = "songs/01.mp3";
 }
 
-function pause(){}
-function stop(){}
+function pauseAudio(){
+	player.pause();
+	songTitle.innerHTML = "the song is currently paused";
+	playIndicator.innerHTML = "<img width='300' height='250' src='img/pause.svg'>";
+	songTime = player.currentTime;
+}
+function stopAudio(){
+	player.pause();
+	songTime = 0;
 
-Jukebox.AddSong("Carlos 01", "songs/01.mp3","img/merengue.jpg");
-Jukebox.AddSong("Carlos 02", "songs/02.mp3","img/merengue.jpg");
-Jukebox.AddSong("Carlos 03", "songs/03.mp3","img/merengue.jpg");
-Jukebox.AddSong("Carlos 04", "songs/04.mp3","img/merengue.jpg");
-Jukebox.AddSong("Carlos 05", "songs/05.mp3","img/merengue.jpg");
+}
+
+function listSongs(){
+	for(let i = 0; i < jukebox.songs.length; i++){
+		songList.innerHTML += "<div class='song" + i + "'>" + jukebox.songs[i].name + "</div>";
+		document.getElementsByClassName("song" + i)[0].addEventListener("click", 
+			function(event){
+				currentSong = parseInt(event.target.innerHTML.split("").pop());
+				jukebox.playAudio(currentSong);
+				console.log(i);
+			}
+		);
+	}
+}
+
+new Song("Carlos 00", "songs/01.mp3","img/merengue.jpg");
+new Song("Carlos 01", "songs/02.mp3","img/merengue.jpg");
+
+// var currentSong = jukebox.songs[0].name;
+
+listSongs();
+
+play.addEventListener("click", function(){jukebox.playAudio(currentSong)});
+// play.addEventListener("mouseover", jukebox.playAudio);
+stop.addEventListener("click", jukebox.stopAudio);
+pause.addEventListener("click", jukebox.pauseAudio);
+// pause.addEventListener("mouseover", jukebox.pauseAudio);
 
 
-Jukebox.play(0);
+jukebox.playAudio(0);

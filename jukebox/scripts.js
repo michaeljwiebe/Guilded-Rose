@@ -81,14 +81,11 @@ function playAudio(num){
 	songTitle.innerHTML = jukebox.songs[num].name;
 	player.src = nextSong;
 	player.currentTime = songTime;
-	console.log(songTime);
 	player.play();
 	pauseIndicator.innerHTML = "<img class='pauseImg' width='300' height='250' src='img/pause.svg'>";
 	pauseIndicator.style.display = "block";
 	playIndicator.style.display = "none";
 	songPic.style.backgroundImage = "url('" + jukebox.songs[num].imgPath + "')";
-	console.log(jukebox.songs[num].imgPath);
-	console.log(songPic.backgroundImage);
 	// imgButtons();
 }
 
@@ -110,14 +107,11 @@ function stopAudio(){
 	player.pause();
 	songTime = 0;
 	songTitle.innerHTML = jukebox.songs[currentSong].name + " is stopped";
-
-
 }
 function loadAudio(){
 	var upload = document.getElementsByClassName("upload")[0];
 	for (var i = 0; i < upload.files.length; i++) {
-		new Song("new song", upload.files[i].name, "accapella.jpg");
-		console.log(upload.files[i]);
+		new Song("new song4", "songs/" + upload.files[i].name, "img/accapella.jpg");
 	}
 	listSongs();
 }

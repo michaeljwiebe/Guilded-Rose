@@ -21,22 +21,48 @@
 // Page has at least one song on load and can play a different song based on title
 // Allow a user to load one of their own songs
 
+var songPic = document.getElementsByClassName("song-pic")[0];
 var player = document.getElementsByClassName("player")[0];
 var stop = document.getElementsByClassName("stop")[0];
 var play = document.getElementsByClassName("play")[0];
 var playIndicator = document.getElementsByClassName("play-indicator")[0];
+var pauseIndicator = document.getElementsByClassName("play-indicator")[0];
 var pause = document.getElementsByClassName("pause")[0];
 var songList = document.getElementsByClassName("song-list")[0];
 var songTitle = document.getElementsByClassName("song-title")[0];
+var upload = document.getElementsByClassName("upload")[0];
+var submit = document.getElementsByClassName("submit")[0];
 var songTime = 0;
+var currentSong = 0;
+var playImg = document.getElementsByClassName("playImg")[0];
+var pauseImg = document.getElementsByClassName("pauseImg")[0];
 
 var jukebox = {
 	addSong: addSong,
 	songs: [],
 	playAudio: playAudio,
 	pauseAudio: pauseAudio,
-	stopAudio: stopAudio
+	stopAudio: stopAudio,
+	loadAudio: loadAudio
 };
+
+new Song("Carlos 00", "songs/01.mp3","img/merengue.jpeg");
+new Song("Carlos 01", "songs/02.mp3","img/merengue.jpeg");
+new Song("Now To Him2", "songs/NowToHim4.mp3","img/blueRidge.jpg");
+new Song("Shenandoah3", "songs/Shenandoah3.mp3","img/blueRidge.jpg");
+
+listSongs();
+addButtons();
+// imgButtons();
+
+playIndicator.addEventListener("click", function(){jukebox.playAudio(currentSong)});
+pauseIndicator.addEventListener("click", jukebox.pauseAudio);
+play.addEventListener("click", function(){jukebox.playAudio(currentSong)});
+stop.addEventListener("click", jukebox.stopAudio);
+pause.addEventListener("click", jukebox.pauseAudio);
+submit.addEventListener("click", loadAudio);
+
+jukebox.playAudio(0);
 
 function addSong(){
 	// add songs to next up?
@@ -52,30 +78,55 @@ function Song(name, filePath, imgPath){
 function playAudio(num){
 	var nextSong = jukebox.songs[num].filePath;
 	currentSong = num;
-	songTitle.innerHTML = "the current song is " + jukebox.songs[num];
+	songTitle.innerHTML = jukebox.songs[num].name;
 	player.src = nextSong;
 	player.currentTime = songTime;
+	console.log(songTime);
 	player.play();
-	playIndicator.innerHTML = "<img width='300' height='250' src='img/play.png'>";
+	pauseIndicator.innerHTML = "<img class='pauseImg' width='300' height='250' src='img/pause.svg'>";
+	pauseIndicator.style.display = "block";
+	playIndicator.style.display = "none";
+	songPic.style.backgroundImage = "url('" + jukebox.songs[num].imgPath + "')";
+	console.log(jukebox.songs[num].imgPath);
+	console.log(songPic.backgroundImage);
+	// imgButtons();
 }
 
 function pauseAudio(){
 	player.pause();
-	songTitle.innerHTML = "the song is currently paused";
-	playIndicator.innerHTML = "<img width='300' height='250' src='img/pause.svg'>";
+	songTitle.innerHTML = jukebox.songs[currentSong].name + " is paused";
+	playIndicator.innerHTML =  "<img class='playImg' width='300' height='250' src='img/play.png'>";
 	songTime = player.currentTime;
+	pauseIndicator.style.display = "none";
+	playIndicator.style.display = "block";
 }
+
+function imgButtons(){
+	// pauseImg.addEventListener("click", function(){console.log("click")})
+
+}
+
 function stopAudio(){
 	player.pause();
-	player.currentTime = 0;
+	songTime = 0;
+	songTitle.innerHTML = jukebox.songs[currentSong].name + " is stopped";
 
+
+}
+function loadAudio(){
+	var upload = document.getElementsByClassName("upload")[0];
+	for (var i = 0; i < upload.files.length; i++) {
+		new Song("new song", upload.files[i].name, "accapella.jpg");
+		console.log(upload.files[i]);
+	}
+	listSongs();
 }
 
 function listSongs(){
 	for(let i = 0; i < jukebox.songs.length; i++){
-		songList.innerHTML += "<div class='song" + i + "'>" + jukebox.songs[i].name + "</div>";
+		songList.innerHTML += "<div class='song song" + i + "'>" + jukebox.songs[i].name + "</div>";
 	}
-
+	addButtons();
 }
 
 function addButtons(){
@@ -89,19 +140,3 @@ function addButtons(){
 	}
 }
 
-
-new Song("Carlos 00", "songs/01.mp3","img/merengue.jpg");
-new Song("Carlos 01", "songs/02.mp3","img/merengue.jpg");
-new Song("Now To Him2", "songs/NowToHim4.mp3","img/merengue.jpg");
-new Song("Shenandoah3", "songs/Shenandoah3.mp3","img/merengue.jpg");
-
-
-listSongs();
-addButtons();
-
-play.addEventListener("click", function(){jukebox.playAudio(currentSong)});
-stop.addEventListener("click", jukebox.stopAudio);
-pause.addEventListener("click", jukebox.pauseAudio);
-
-
-jukebox.playAudio(0);

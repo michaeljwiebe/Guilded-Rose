@@ -7,22 +7,25 @@
 	<title></title>
 </head>
 <body>
-	<div class="song-pic"></div>
-	<audio class="player" src=""></audio>
-	<div class="btns">
-		<div class="play btn">&#x27a4;</div>
-		<div class="stop btn">&#9724;</div>
-		<div class="pause btn">||</div>
-		<button class="btn" onclick="document.getElementsByClassName('player')[0].volume += 0.1">&#43;</button> 
-		<button class="btn" onclick="document.getElementsByClassName('player')[0].volume -= 0.1">&#8722;</button> 
+	<div class="left-half">
+		<div class="song-pic"></div>
+		<audio class="player" src=""></audio>
+		<div class="btns">
+			<div class="play btn">&#x27a4;</div>
+			<div class="stop btn">&#9724;</div>
+			<div class="pause btn">||</div>
+			<button class="btn" onclick="document.getElementsByClassName('player')[0].volume += 0.1">&#43;</button> 
+			<button class="btn" onclick="document.getElementsByClassName('player')[0].volume -= 0.1">&#8722;</button> 
+		</div>
 	</div>
-
-	<div class="song song-title"></div>
-	<div class="song-list"></div>
-	<input class="upload" type="file" multiple accept="audio/*">
-  	<input class="submit" type="submit">
-	<div class="play-indicator"></div>
-	<div class="pause-indicator"></div>
+	<div class="right-half">
+		<div class="song song-title"></div>
+		<div class="song-list"></div>
+		<input class="upload" type="file" multiple accept="audio/*">
+	  	<input class="submit" type="submit">
+		<div class="play-indicator"></div>
+		<div class="pause-indicator"></div>
+	</div>
 	<script type="text/javascript" src="scripts.js"></script>
 </body>
 </html>

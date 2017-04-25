@@ -1,11 +1,14 @@
 body{
 	background-color: #45b1fb;
-	max-width: 400px;
+	max-width: 800px;
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: center;
 }
 .song-pic{
 	width: 300px;
 	height: 300px;
-	margin: 10px auto;
+	margin: 0 0 10px 0;
 	background-image: url("");
 	background-size: cover;
 }
@@ -34,8 +37,5 @@ body{
 }
 .song-title{
 	text-align: center;
-}
-
-@media all and (min-width: 400px){
-
+	margin-top: 0;
 }
